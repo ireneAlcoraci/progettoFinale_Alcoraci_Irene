@@ -7,7 +7,7 @@ export function ProtectedRoute({children}){
     const navigateTo = useNavigate();
 
     useEffect(() =>{
-        if(!user.isAuthorized && user.ruolo != "Admin"){
+        if(!user.isLogged){
             navigateTo("/")
         }
     }, [])

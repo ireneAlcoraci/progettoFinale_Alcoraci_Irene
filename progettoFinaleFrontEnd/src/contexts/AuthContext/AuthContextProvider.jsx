@@ -8,8 +8,7 @@ export function AuthContextProvider({children}){
         nome: "",
         cognome: "",
         email: "",
-        ruolo: [],
-        isAuthorized: true
+        isLogged: false
     });
 
     return(

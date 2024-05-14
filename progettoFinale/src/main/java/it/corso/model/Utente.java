@@ -1,10 +1,18 @@
 package it.corso.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,6 +35,23 @@ public class Utente {
 	
 	@Column(name = "password")
 	private String password;
+	
+	@ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+	@JoinTable
+	(
+		name = "utente_tempo", joinColumns = @JoinColumn(name = "fk_u", referencedColumnName = "ID"),
+		inverseJoinColumns = @JoinColumn(name = "fk_t", referencedColumnName = "ID")
+	)
+	private List<Tempo> listaTempi = new ArrayList<>();
+	
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getNome() {
 		return nome;
@@ -59,6 +84,15 @@ public class Utente {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public List<Tempo> getListaTempi() {
+		return listaTempi;
+	}
+
+	public void setListaTempi(List<Tempo> listaTempi) {
+		this.listaTempi = listaTempi;
+	}
+	
 	
 	
 

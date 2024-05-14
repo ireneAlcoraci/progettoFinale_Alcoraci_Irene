@@ -2,10 +2,8 @@ package it.corso.controller;
 
 import java.security.Key;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -122,7 +120,7 @@ public class UtenteController {
 	}
 	
 	@GET
-	@Path("/logout")
+	@Path("logout")
 	public Response logoutUtente(ContainerRequestContext requestContext) {
 		try {
 			String authorizationHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);

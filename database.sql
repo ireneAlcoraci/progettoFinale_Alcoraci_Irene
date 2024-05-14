@@ -1,28 +1,31 @@
-CREATE DATABASE nome;
+CREATE DATABASE progetto_finale;
 
-USE nome;
+USE progetto_finale;
 
-CREATE TABLE IF NOT EXISTS nome_tabella (
+CREATE TABLE IF NOT EXISTS utente (
 	ID INT AUTO_INCREMENT PRIMARY KEY,
-    valore_stringa VARCHAR(255) NOT NULL UNIQUE,
-    valore_enum ENUM('cose', 'altre cose', 'e ancora cose'),
-    valore_decimale DECIMAL(10,2), 
-    fk_tabella2 INT NOT NULL,
-    FOREIGN KEY(fk_tabella2) REFERENCES nome_tabella (ID)    
+    nome VARCHAR(255) DEFAULT '',
+    cognome VARCHAR(255) DEFAULT '',
+	email VARCHAR(255) DEFAULT '',
+	password  VARCHAR(255) DEFAULT NULL
+        
 ); 
 
-CREATE TABLE IF NOT EXISTS nome_tabella2(
-	ID INT AUTO_INCREMENT,
-    valore_stringa VARCHAR(255) NOT NULL DEFAULT '',
-    valore INT NOT NULL DEFAULT 0,
-    valore_generale VARCHAR(255) DEFAULT NULL,
-    PRIMARY KEY(ID)
+CREATE TABLE IF NOT EXISTS tempo (
+	ID INT AUTO_INCREMENT PRIMARY KEY,
+    nome_citta VARCHAR(255) DEFAULT '',
+    temperatura DECIMAL(10,2) DEFAULT 0,
+	max_temp DECIMAL(10,2) DEFAULT 0,
+    min_temp DECIMAL(10,2) DEFAULT 0,
+    umidita INT DEFAULT 0,
+	tempo  VARCHAR(255) DEFAULT ''
 );
 
-CREATE TABLE IF NOT EXISTS tabella_raccordo(
-	FK_1 INT NOT NULL,
-    FK_2 INT NOT NULL,
-    PRIMARY KEY(FK_1, FK_2),
-    FOREIGN KEY (FK_1) REFERENCES nome_tabella(ID),
-    FOREIGN KEY (FK_2) REFERENCES nome_tabella2(ID)
+CREATE TABLE utente_tempo (
+  fk_u int NOT NULL,
+  fk_t int NOT NULL,
+  PRIMARY KEY (fk_u, fk_t),
+  FOREIGN KEY (fk_u) REFERENCES utente (ID) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (fk_t) REFERENCES tempo (ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
+

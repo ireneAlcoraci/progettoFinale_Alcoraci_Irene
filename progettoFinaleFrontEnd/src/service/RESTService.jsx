@@ -1,7 +1,7 @@
 export async function userLogin(obj) {
     const jsonBody = JSON.stringify(obj);
 
-    const response = await fetch("http://localhost:8080/api/utente/login", {
+    const response = await fetch("http://localhost:8080/api/login", {
         mode: "cors",
         method: "POST",
         body: jsonBody,
@@ -22,7 +22,7 @@ export async function userLogin(obj) {
 
 export async function userLogout(token) {
 
-    const response = await fetch("http://localhost:8080/api/utente/logout", {
+    const response = await fetch("http://localhost:8080/api/logout", {
         mode: "cors",
         method: "GET",
         headers: {
@@ -36,10 +36,9 @@ export async function userLogout(token) {
 
 export async function userRegistration(obj) {
 
-    try {
-        const jsonBody = JSON.stringify(obj);
+    const jsonBody = JSON.stringify(obj);
 
-        const response = await fetch("http://localhost:8080/api/utente/registra", {
+        const response = await fetch("http://localhost:8080/api/registra", {
             mode: "cors",
             method: "POST",
             body: jsonBody,
@@ -50,64 +49,21 @@ export async function userRegistration(obj) {
         })
 
         if (response.ok) {
-            return await response.json();
+            return "ok";
         } else {
             return "";
         }
-    } catch (error) {
-        throw new Error(`Errore in fase di registrazione catch: ${response.status}`);
-    }
-}
-
-export async function getAllUsers() {
-
-    const response = await fetch("http://localhost:8080/api/utente/getAll", {
-        mode: "cors",
-        method: "GET"
-    });
-
- 
-    return await response.json();
-}
-
-export async function getCorsesList(token) {
-    const bearer = "Bearer " + token;
-    const response = await fetch("http://localhost:8080/api/corso/corsi", {
-        mode: "cors",
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": bearer
-        }
-    });
-
-    if(response.ok){
-        
-        return await response.json();
-     
-    }
-
+    
 }
 
 
-export async function updateUser(obj) {
-    const jsonBody = JSON.stringify(obj);
+export async function getWeaderData(cityName, key) {
 
-    const response = await fetch("http://localhost:8080/api/utente/update", {
-        mode: "cors",
-        method: "PUT",
-        body: jsonBody,
-        headers: {
-            "Content-Type": "application/json",
-
-        }
-    })
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${key}`);
 
     if(response.ok){
         return await response.json();
     }else{
         return "";
     }
-
-   
 }
