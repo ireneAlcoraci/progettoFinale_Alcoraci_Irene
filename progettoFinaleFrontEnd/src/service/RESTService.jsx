@@ -89,3 +89,20 @@ export async function saveWeather(obj) {
         }
     
 }
+
+export async function deleteUser(email) {
+
+    const response = await fetch(`http://localhost:8080/api/delete?email=${email}`, {
+        mode: "cors",
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        }
+    });
+
+    if (response.ok) {
+        return "ok";
+    } else {
+        return "";
+    }
+}

@@ -22,4 +22,7 @@ public interface UtenteService {
 		
 		//funzione che permette di restituire un utente tramite email
 		Utente trovaUtenteDaEmail(String email);
+		
+		//funzione che permette di eliminare un utente tramite email
+		void eliminaUtente(String email);
 }

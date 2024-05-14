@@ -1,5 +1,7 @@
 package it.corso.service;
 
+import java.util.Optional;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,6 +55,17 @@ public class UtenteServiceImpl implements UtenteService {
 	@Override
 	public Utente trovaUtenteDaEmail(String email) {
 		return utenteDao.findByEmail(email);
+	}
+
+	@Override
+	public void eliminaUtente(String email) {
+		Utente utente = utenteDao.findByEmail(email);
+		Optional<Utente> utenteOptional = utenteDao.findById(utente.getId());
+		
+		if (utenteOptional.isPresent()) {
+			utenteDao.delete(utenteOptional.get());
+		}
+		
 	}
 
 }

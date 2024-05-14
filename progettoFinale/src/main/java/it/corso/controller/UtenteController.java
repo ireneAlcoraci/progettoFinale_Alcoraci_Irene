@@ -21,10 +21,13 @@ import it.corso.service.BlackListService;
 import it.corso.service.UtenteService;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
@@ -131,6 +134,19 @@ public class UtenteController {
 			
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	@DELETE
+	@Path("/delete")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response eliminaUtente(@QueryParam("email") String email) {
+		try {
+			utenteService.eliminaUtente(email);
+			return Response.status(Response.Status.OK).build(); 
+			
+		} catch (Exception e) {
+			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
 	}
 }

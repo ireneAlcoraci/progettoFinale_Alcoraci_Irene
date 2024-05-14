@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { userLogout } from "../../service/RESTService";
+import { deleteUser } from "../../service/RESTService";
 import Cookies from "js-cookie";
 
 
@@ -27,10 +28,17 @@ export function UserDetails(){
                 isLogged: false
             });
 
-            navigateTo("/login")
+            navigateTo("/")
         }
 
         
+    }
+
+    const handleClickElimina = async () =>{
+        const response = await deleteUser(user.email);
+        console.log(response);
+        handleClick();
+        navigateTo("/");
     }
 
    
@@ -45,6 +53,7 @@ export function UserDetails(){
                 <p>Nome: {user.nome}</p>
                 <p>Cognome: {user.cognome}</p>
                 <p>Email: {user.email}</p>
+                <button className="btn btn-lg btn-primary" onClick={handleClickElimina}>Elimina Profilo</button>
             </div>
         </div>
     );

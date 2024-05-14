@@ -20,7 +20,7 @@ export function Home(){
     return (
         <div className="container align-items-center justify-content-center ">
             <div className="position-absolute top-50 start-50 translate-middle">
-                <h1 className="text-center">Benvenuto della del meteo</h1>
+                <h1 className="text-center">Benvenuto del sito Meteo</h1>
                 <p className="text-center">Accedi alle tue funzionalità</p>
                 <div className="d-flex justify-content-center my-3">                    
                     <button className="btn btn-lg btn-primary" onClick={handleClickAccedi}>Accedi</button>
