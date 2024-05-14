@@ -16,7 +16,7 @@ export function Navbar() {
                     <div className="navbar-nav">
                         <NavLink className="nav-link" aria-current="page" to="/">Home</NavLink>
                         {user.isLogged? <NavLink className="nav-link" to="/login/userDetails" >Dettagli utente</NavLink> : ""}
-                        {user.isLogged? <NavLink className="nav-link" to="/login/weatherPage" >Dettagli tempo</NavLink> : ""}
+                        {user.isLogged? <NavLink className="nav-link" to="/login/weatherPage" >Meteo</NavLink> : ""}
                    </div>
                 </div>
             </div>
