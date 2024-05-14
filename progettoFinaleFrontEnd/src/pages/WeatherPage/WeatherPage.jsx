@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getWeaderData } from "../../service/RESTService";
-import {WeatherCard} from "../../components/WeatherCard/WeatherCard"
+import { WeatherCard } from "../../components/WeatherCard/WeatherCard"
+import { saveWeather } from "../../service/RESTService";
 
 export function WeatherPage() {
     const ApiKey = "cbc6af74c871487f467af76ade7a5290";
@@ -13,6 +14,20 @@ export function WeatherPage() {
         document.title = "Weather page";
     }, []);
 
+    useEffect(() => {
+        if (typeof weatherData.main !== "undefined") {
+            const response = saveWeather({
+                nomeCitta: weatherData.name,
+                temperatura: weatherData.main.temp,
+                maxTemp: weatherData.main.temp_max,
+                minTemp: weatherData.main.temp_min,
+                umidita: weatherData.main.humidity,
+                tempo: weatherData.weather[0].main
+            });
+            console.log(response);
+        }
+    }, [weatherData]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setCity({ ...city, [name]: value });
@@ -22,8 +37,12 @@ export function WeatherPage() {
         e.preventDefault();
         console.table(city);
         const data = await getWeaderData(city.name, ApiKey);
-        setCity("");
+        setCity({
+            name: ""
+        });
+
         setWeatherData(data);
+
     }
 
 
@@ -44,18 +63,18 @@ export function WeatherPage() {
                     <p> Benvenuto nel pannello del tempo cerca una città per sapere il tempo che farà </p>
                 </div> :
                 <div className="row">
-                        <WeatherCard
-                            citta={weatherData.name}
-                            temperatura={weatherData.main.temp}
-                            maxTemp={weatherData.main.temp_max}
-                            minTemp={weatherData.main.temp_min}
-                            umidita={weatherData.main.humidity}
-                            tempo={weatherData.weather[0].main}>
+                    <WeatherCard
+                        citta={weatherData.name}
+                        temperatura={weatherData.main.temp}
+                        maxTemp={weatherData.main.temp_max}
+                        minTemp={weatherData.main.temp_min}
+                        umidita={weatherData.main.humidity}
+                        tempo={weatherData.weather[0].main}>
 
-                        </WeatherCard>
+                    </WeatherCard>
                 </div>
-               
+
             }
-                </div>
+        </div>
     );
 }

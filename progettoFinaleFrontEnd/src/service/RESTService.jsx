@@ -67,3 +67,25 @@ export async function getWeaderData(cityName, key) {
         return "";
     }
 }
+
+export async function saveWeather(obj) {
+
+    const jsonBody = JSON.stringify(obj);
+
+        const response = await fetch("http://localhost:8080/api/tempo/crea", {
+            mode: "cors",
+            method: "POST",
+            body: jsonBody,
+            headers: {
+                "Content-Type": "application/json",
+
+            }
+        })
+
+        if (response.ok) {
+            return "ok";
+        } else {
+            return "";
+        }
+    
+}
